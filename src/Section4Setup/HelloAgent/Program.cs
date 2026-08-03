@@ -5,7 +5,7 @@ using OpenAI.Chat;
 using System.ClientModel;
 
 // Define the variables we extracted from Microsoft Foundry 
-var model = Environment.GetEnvironmentVariable("AZURE_OPENAI_DEPLOYMENT_NAME") ?? "gpt-5-mini";
+var deploymentModelName = Environment.GetEnvironmentVariable("AZURE_OPENAI_DEPLOYMENT_NAME") ?? "gpt-5-mini";
 
 // Admin > All Projects > Name (or Parent resource) > Endpoint (Base URL)
 var endpoint = Environment.GetEnvironmentVariable("AZURE_OPENAI_ENDPOINT") 
@@ -17,13 +17,13 @@ var endpoint = Environment.GetEnvironmentVariable("AZURE_OPENAI_ENDPOINT")
 // Create the Agent using MFA
 AIAgent agent = new AzureOpenAIClient(
    new Uri(endpoint), new AzureCliCredential())
-   .GetChatClient(model)
+   .GetChatClient(deploymentModelName)
    .AsAIAgent(instructions: "You are a friendly assistant. Keep your answers brief.");
 
 // Use for CI/CD scenarios, Get it from: Admin > All Projects > Parent resource > Api Key
 //AIAgent agent = new AzureOpenAIClient(
 //    new Uri(endpoint), new ApiKeyCredential(apikey))
-//    .GetChatClient(model)
+//    .GetChatClient(deploymentModelName)
 //    .AsAIAgent(instructions: "You are a friendly assistant. Keep your answers brief.");
 
 // Invoke the Agent 

@@ -3,4 +3,9 @@
   <Folder Name="/src/Section4Setup/">
     <Project Path="src/Section4Setup/HelloAgent/HelloAgent.csproj" />
   </Folder>
+  <Folder Name="/src/Section5GettingStarted/">
+    <Project Path="src/Section5GettingStarted/BasicAgentApp/BasicAgentApp.csproj" />
+    <Project Path="src/Section5GettingStarted/MultiTurn/MultiTurn.csproj" />
+    <Project Path="src/Section5GettingStarted/Streaming/Streaming.csproj" />
+  </Folder>
 </Solution>
