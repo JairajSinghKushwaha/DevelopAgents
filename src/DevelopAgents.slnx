@@ -1,0 +1,17 @@
+<Solution>
+  <Folder Name="/Section4Setup/">
+    <Project Path="Section4Setup/HelloAgent/HelloAgent.csproj" />
+  </Folder>
+  <Folder Name="/Section5GettingStarted/">
+    <Project Path="Section5GettingStarted/BasicAgentApp/BasicAgentApp.csproj" />
+    <Project Path="Section5GettingStarted/MultiTurn/MultiTurn.csproj" />
+    <Project Path="Section5GettingStarted/Streaming/Streaming.csproj" />
+    <Project Path="Section5GettingStarted/StructuredOutput/StructuredOutput.csproj" />
+  </Folder>
+  <Folder Name="/Section5GettingStarted/MinimalAgent/">
+    <Project Path="Section5GettingStarted/MinimalAgent/AppHost/AppHost.csproj" />
+    <Project Path="Section5GettingStarted/MinimalAgent/ServiceDefaults/ServiceDefaults.csproj" />
+    <Project Path="Section5GettingStarted/MinimalAgent/WebApi/WebApi.csproj" />
+  </Folder>
+
+</Solution>

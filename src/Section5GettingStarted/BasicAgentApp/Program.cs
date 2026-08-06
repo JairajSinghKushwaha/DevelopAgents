@@ -20,8 +20,10 @@ IChatClient chatClient = new AzureOpenAIClient(
 // Define the Agent's Anatomy
 AIAgent agent = chatClient.AsAIAgent(
     name: "NetworkSupport",
-    instructions: @"You are a Tier 1 IT Support Agent. Your answers must be a concise, professional, and 
-                    limited strictly to trobleshoting network and VPN connectivity. Keep your answer brief."
+    instructions: """
+                  You are a Tier 1 IT Support Agent. Your answers must be a concise, professional, and 
+                  limited strictly to trobleshoting network and VPN connectivity. Keep your answer brief.
+                  """
     );
 
 Console.WriteLine($"Agent '{agent.Name}' is online...\n");

@@ -21,7 +21,7 @@ IChatClient chatClient = new AzureOpenAIClient(
 // Define the Agent's Anatomy
 AIAgent agent = chatClient.AsAIAgent(
     name: "HistoryBuff",
-    instructions: @"You are a helpful history teacher. You answer questions and help students make connections between events."
+    instructions: "You are a helpful history teacher. You answer questions and help students make connections between events."
     );
 
 // Create the Session (The Memory Container)
