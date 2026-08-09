@@ -13,5 +13,15 @@
     <Project Path="Section5GettingStarted/MinimalAgent/ServiceDefaults/ServiceDefaults.csproj" />
     <Project Path="Section5GettingStarted/MinimalAgent/WebApi/WebApi.csproj" />
   </Folder>
+  <Folder Name="/Section6ToolUse/">
+    <Project Path="Section6ToolUse/ApproveRequiredFunc/ApproveRequiredFunc.csproj" />
+    <Project Path="Section6ToolUse/CodeInterpreter/CodeInterpreter.csproj" />
+    <Project Path="Section6ToolUse/FunctionCall/FunctionCall.csproj" />
+  </Folder>
+  <Folder Name="/Section6ToolUse/MinimalAgent/">
+    <Project Path="Section6ToolUse/MinimalAgent/AppHost/AppHost.csproj" />
+    <Project Path="Section6ToolUse/MinimalAgent/ServiceDefaults/ServiceDefaults.csproj" />
+    <Project Path="Section6ToolUse/MinimalAgent/WebApi/WebApi.csproj" />
+  </Folder>
 
 </Solution>
