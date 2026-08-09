@@ -18,6 +18,8 @@ var endpoint = Environment.GetEnvironmentVariable("AZURE_OPENAI_ENDPOINT")
 // Build the tools list and add thr native Code Interpreter ResponseTool via the AITool bridge extension
 IList<AITool> tools = [];
 
+// ********************************************************|| Code Interpreter Tool ||*****************************************************************************
+
 #pragma warning disable OPENAI001
 
 // CreateCodeInterpreterTool() that runs Python code in a secure sandbox. The sandbox container is created automatically.
@@ -54,41 +56,40 @@ Console.WriteLine($"Agent: {response.Text}");
 
 //// File Search Tool - In a real scenario, this ID is retrived from your Azure AI Foundry project
 
-//string corporateVectorStoreId = "vs-987654321";
-
-//#pragma warning disable OPENAI001
-
-//tools.Add(ResponseTool.CreateFileSearchTool(vectorStoreIds: [corporateVectorStoreId]));
-
-//#pragma warning restore OPENAI001
-
-//// Initialize the Agent with the File Search capability pointing to your data
-//agent = new AzureOpenAIClient(new Uri(endpoint), new AzureCliCredential())
-//        .GetChatClient(deploymentModelName)
-//        .AsAIAgent(
-//            name: "FinancialAnalyst",
-//            instructions: "You are a financial analyst. Answer questions strictly based on the provided corporate decumnet",
-//            tools: [tools.LastOrDefault()]
-//        );
-
-//prompt = "What were the key risk factors in the Q3 Report?";
-//Console.WriteLine($"User: {prompt}");
-
-//response = await agent.RunAsync(prompt);
-//Console.WriteLine($"Agent: {response.Text}");
-
-// -----------------------------------------------------------------------------------------------
 
 // Create project client to call Foundry API
 AIProjectClient projectClient = new(new Uri(endpoint), new DefaultAzureCredential());
 
 // Create a toy example file and upload it using OpenAI mechanism.
-string filePath = @"UserDetailsLog.txt";
+string filePath = @"Q3Report.JSON";
 
 string content = """
-The word 'apple' uses the code 442345.
-The word 'banana' uses the code 673457.
-The word 'orange' uses the code 781234.
+[{
+  "title": "Q3 Report",
+  "Company": "ABC IT",
+  "timestamp": "2026-07-02T09:14:32Z",
+  "risk_factor": "Revenue concentration",
+  "severity": "High",
+  "metric": "Top 5 customers share of revenue",
+  "value": 42.7,
+  "unit": "percent",
+  "threshold": 35.0,
+  "status": "Above threshold",
+  "source": "ERP"
+},
+{
+  "title": "Q3 Report",
+  "Company": "XYZ IT",
+  "timestamp": "2026-07-08T15:42:11Z",
+  "risk_factor": "Customer churn",
+  "severity": "Medium",
+  "metric": "Quarterly churn rate",
+  "value": 6.8,
+  "unit": "percent",
+  "threshold": 5.0,
+  "status": "Above threshold",
+  "source": "CRM"
+}]
 """;
 
 // Attaching the file and writing content on that file and then upload.
@@ -100,14 +101,14 @@ OpenAIFile uploadedFile = fileClient.UploadFile(filePath: filePath, purpose: Fil
 #pragma warning disable OPENAI001
 
 // Create the VectorStore and provide it with uploaded file ID.
-VectorStoreClient vctStoreClient = projectClient.ProjectOpenAIClient.GetVectorStoreClient();
+VectorStoreClient vectorStoreClient = projectClient.ProjectOpenAIClient.GetVectorStoreClient();
 VectorStoreCreationOptions options = new()
 {
-    Name = "MySampleStore",
+    Name = "VestorStore",
     FileIds = { uploadedFile.Id }
 };
 
-VectorStore vectorStore = vctStoreClient.CreateVectorStore(options);
+VectorStore vectorStore = vectorStoreClient.CreateVectorStore(options);
 
 #pragma warning disable OPENAI001
 
@@ -115,16 +116,16 @@ ResponseTool fileSearchTool = ResponseTool.CreateFileSearchTool(vectorStoreIds: 
 
 var responseClient = projectClient.ProjectOpenAIClient.GetProjectResponsesClientForModel(deploymentModelName);
 
-prompt = "Can you give me the documented codes for 'banana' and 'orange'?";
+prompt = "What were the key risk factors in the Q3 Report?";
 
-CreateResponseOptions responseOptions = new() 
+CreateResponseOptions responseOptions = new()
 {
-    Instructions = "You are a helpful agent that can help fetch data from files you know about.",
+    Instructions = "You are a helpful agent that can help fetch data from any files you know about.",
     Tools = { fileSearchTool },
     InputItems = { ResponseItem.CreateUserMessageItem(prompt) }
 };
 
-Console.WriteLine($"User: {prompt}");
+Console.WriteLine($"\nUser: {prompt}");
 
 ResponseResult result = responseClient.CreateResponse(responseOptions);
 
@@ -133,25 +134,31 @@ ResponseResult result = responseClient.CreateResponse(responseOptions);
 Console.WriteLine($"Agent: {result.GetOutputText()}");
 
 // Remove all the resources created in this sample.
-vctStoreClient.DeleteVectorStore(vectorStoreId: vectorStore.Id);
+vectorStoreClient.DeleteVectorStore(vectorStoreId: vectorStore.Id);
 fileClient.DeleteFile(uploadedFile.Id);
 
-// *********************************************************************************************************************************
+// *********************************************************|| Web Search Tool ||*********************************************************************
 
-//#pragma warning disable OPENAI001
+#pragma warning disable OPENAI001
 
-//tools.Add(ResponseTool.CreateWebSearchTool(
-//    new CodeInterpreterToolContainer(CodeInterpreterToolContainerConfiguration.CreateAutomaticContainerConfiguration([]))
-//    ));
-//#pragma warning restore OPENAI001
+var webSearchTool = ResponseTool.CreateWebSearchTool(searchContextSize: WebSearchToolContextSize.Medium).AsAITool();
 
-//// Web Search Tool, Initialize the Agent with live internet access.
-//agent = new AzureOpenAIClient(new Uri(endpoint), new AzureCliCredential())
-//        .GetChatClient(deploymentModelName)
-//        .AsAIAgent(
-//            name: "MarketResearcher",
-//            instructions: "You are a market researcher. Always verify current event using the web search tool before providing an answer. Cite your sources.",
-//            tools: [new WebSearchToolDefinition()]
-//         );
+#pragma warning restore OPENAI001
 
-//prompt = "What were the yesterday's major tech announcements?";
+// Web Search Tool, Initialize the Agent with live internet access.
+agent = new AzureOpenAIClient(new Uri(endpoint), new AzureCliCredential())
+        .GetChatClient(deploymentModelName)
+        .AsAIAgent(
+            name: "MarketResearcher",
+            instructions: """
+            You are a market researcher. Always verify current event using the web search tool before providing an answer. 
+            Cite your sources. 
+            """,
+            tools: [webSearchTool]
+         );
+
+prompt = "What were the yesterday's major top 3 tech announcements from a global/international news?";
+Console.WriteLine($"\nUser: {prompt}");
+
+var resp = await agent.RunAsync(prompt);
+Console.WriteLine($"Agent: {resp.Text}");
