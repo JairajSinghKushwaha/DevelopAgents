@@ -27,5 +27,9 @@
     <Project Path="Section7Memory/CustomContextProvider/CustomContextProvider.csproj" />
     <Project Path="Section7Memory/MockCosmosDb/MockCosmosDb.csproj" />
   </Folder>
+  <Folder Name="/Section8Workflows/">
+    <Project Path="Section8Workflows/AgentsWorkflow/AgentsWorkflow.csproj" />
+    <Project Path="Section8Workflows/FirstWorkflow/FirstWorkflow.csproj" />
+  </Folder>
 
 </Solution>
