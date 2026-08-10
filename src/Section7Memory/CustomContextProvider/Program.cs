@@ -6,8 +6,6 @@ using OpenAI.Chat;
 using System.Text;
 using System.Text.Json;
 
-
-
 sealed class EmployeeProfile
 {
     public string? EmployeeName { get; set; }
