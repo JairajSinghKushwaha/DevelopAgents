@@ -31,5 +31,8 @@
     <Project Path="Section8Workflows/AgentsWorkflow/AgentsWorkflow.csproj" />
     <Project Path="Section8Workflows/FirstWorkflow/FirstWorkflow.csproj" />
   </Folder>
+  <Folder Name="/Section9WorkflowPattern/">
+    <Project Path="Section9WorkflowPattern/AgenticWorkflowPattern/AgenticWorkflowPattern.csproj" />
+  </Folder>
 
 </Solution>
