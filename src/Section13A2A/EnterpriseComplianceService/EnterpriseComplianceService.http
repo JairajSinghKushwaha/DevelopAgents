@@ -1,0 +1,6 @@
+@EnterpriseComplianceService_HostAddress = http://localhost:5168
+
+GET {{EnterpriseComplianceService_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

@@ -1,4 +1,11 @@
 <Solution>
+  <Folder Name="/Section11AgenticRag/">
+    <Project Path="Section11AgenticRag/BasicTextRag/BasicTextRag.csproj" />
+    <Project Path="Section11AgenticRag/QdrantVectorStore/QdrantVectorStore.csproj" />
+  </Folder>
+  <Folder Name="/Section13A2A/">
+    <Project Path="Section13A2A/EnterpriseComplianceService/EnterpriseComplianceService.csproj" />
+  </Folder>
   <Folder Name="/Section4Setup/">
     <Project Path="Section4Setup/HelloAgent/HelloAgent.csproj" />
   </Folder>
@@ -33,6 +40,11 @@
   </Folder>
   <Folder Name="/Section9WorkflowPattern/">
     <Project Path="Section9WorkflowPattern/AgenticWorkflowPattern/AgenticWorkflowPattern.csproj" />
+  </Folder>
+  <Folder Name="/Section9WorkflowPattern/MinimalAgent/">
+    <Project Path="Section9WorkflowPattern/MinimalAgent/AppHost/AppHost.csproj" />
+    <Project Path="Section9WorkflowPattern/MinimalAgent/ServiceDefaults/ServiceDefaults.csproj" />
+    <Project Path="Section9WorkflowPattern/MinimalAgent/WebApi/WebApi.csproj" />
   </Folder>
 
 </Solution>

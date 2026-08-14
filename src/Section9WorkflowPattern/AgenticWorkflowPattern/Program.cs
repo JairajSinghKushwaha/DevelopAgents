@@ -5,8 +5,6 @@ using Azure.Identity;
 using Microsoft.Agents.AI;
 using Microsoft.Agents.AI.Workflows;
 using Microsoft.Extensions.AI;
-using System.Numerics;
-using System.Xml.Linq;
 
 public class Program
 {
