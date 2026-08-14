@@ -1,6 +1,22 @@
 @EnterpriseComplianceService_HostAddress = http://localhost:5168
 
-GET {{EnterpriseComplianceService_HostAddress}}/weatherforecast/
-Accept: application/json
+POST {{EnterpriseComplianceService_HostAddress}}/a2a/Compliance/message:stream
+Content-Type: application/json
+
+{
+   "message": {
+     "kind": "message",
+     "role": 1,
+     "parts": [
+       {
+         "kind": "text",
+         "text": "Please review this user profile update. 'Added personal phone number +44 7911 123456 to the public directory.'",
+         "metadata": {}
+       }
+     ],
+     "messageId":"msg-001",
+     "contextId":"audit-session-998"
+   }
+}
 
 ###
