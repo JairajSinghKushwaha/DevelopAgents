@@ -6,6 +6,14 @@
   <Folder Name="/Section13A2A/">
     <Project Path="Section13A2A/EnterpriseComplianceService/EnterpriseComplianceService.csproj" />
   </Folder>
+  <Folder Name="/Section14MCP/">
+    <Project Path="Section14MCP/HostedMcpGovernance/HostedMcpGovernance.csproj" />
+    <Project Path="Section14MCP/LocalGitHubMcp/LocalGitHubMcp.csproj" />
+  </Folder>
+  <Folder Name="/Section15AGUI/">
+    <Project Path="Section15AGUI/Client/Client.csproj" />
+    <Project Path="Section15AGUI/Server/Server.csproj" />
+  </Folder>
   <Folder Name="/Section4Setup/">
     <Project Path="Section4Setup/HelloAgent/HelloAgent.csproj" />
   </Folder>
